@@ -12,6 +12,7 @@ import SoundPlayer from 'react-native-sound-player';
 import { navigate } from '../helpers/NavigationUtil';
 import { useDispatch, useSelector } from 'react-redux';
 import {selectCurrentPositions} from '../redux/reducers/gameSelectors';
+import { resetGame } from '../redux/reducers/gameSlice';
 const HomeScreen = () => {
   const dispatch= useDispatch();
   const currentPosition= useSelector(selectCurrentPositions);
@@ -115,7 +116,7 @@ const HomeScreen = () => {
       <View style={styles.imgContainer}>
         <Image source ={Logo} style={styles.img} />
       </View>
-      {currentPosition.length ===0 && 
+      {currentPosition.length !==0 && 
        renderButton('RESUME',handleResumePress)}
       {renderButton('NEW GAME', handleNewGamePress)}
       {renderButton('VS CPU',()=> Alert.alert('Coming Soon! Click New Game'))}
