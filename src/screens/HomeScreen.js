@@ -10,7 +10,11 @@ import {playSound} from '../helpers/SoundUtility';
 import { useIsFocused } from '@react-navigation/native';
 import SoundPlayer from 'react-native-sound-player';
 import { navigate } from '../helpers/NavigationUtil';
+import { useDispatch, useSelector } from 'react-redux';
+import {selectCurrentPositions} from '../redux/reducers/gameSelectors';
 const HomeScreen = () => {
+  const dispatch= useDispatch();
+  const currentPosition= useSelector(selectCurrentPositions);
   const witchAnim= useRef(new Animated.Value(-deviceWidth)).current;
   const scaleXAnim= useRef(new Animated.Value(-1)).current;
   const isFocused=useIsFocused();
@@ -92,6 +96,9 @@ const HomeScreen = () => {
   );
   const startGame=async(isNew = false)=>{
     SoundPlayer.stop();
+    if(isNew){
+      dispatch(resetGame());
+    }
     navigate('LudoBoardScreen');
     playSound('game_start');
 
@@ -99,11 +106,17 @@ const HomeScreen = () => {
   const handleNewGamePress=useCallback(()=>{
     startGame(true);
   }, []);
+  const handleResumePress= useCallback(() => {
+    startGame();
+  },[]);
+
   return (
     <Wrapper style={styles.mainContainer}>
       <View style={styles.imgContainer}>
         <Image source ={Logo} style={styles.img} />
       </View>
+      {currentPosition.length ===0 && 
+       renderButton('RESUME',handleResumePress)}
       {renderButton('NEW GAME', handleNewGamePress)}
       {renderButton('VS CPU',()=> Alert.alert('Coming Soon! Click New Game'))}
       {renderButton('2 VS 2',()=> Alert.alert('Coming Soon! Click New Game'))}

@@ -5,5 +5,5 @@ export const gameSlice = createSlice({
     initialState: initialState,
     reducers:{}
 })
-export const {} = gameSlice.actions
+export const {resetGame} = gameSlice.actions
 export default gameSlice.reducer;
