@@ -4,7 +4,7 @@ import { deviceHeight, deviceWidth } from '../constants/Scaling';
 import Wrapper from '../components/Wrapper';
 import { playSound } from '../helpers/SoundUtility';
 import menuIcon from '../assets/images/menu.png';
-
+import MenuModal from '../components/MenuModal';
 const LudoBoardScreen = () => {
   const[menuVisible, setMenuVisible]= useState(false);
 
@@ -17,6 +17,12 @@ const LudoBoardScreen = () => {
       <TouchableOpacity style={styles.menuIcon} onPress={handleMenuPress}>
        <Image source={menuIcon} style={styles.menuIconImage}/>
       </TouchableOpacity>
+       {menuVisible && (
+          <MenuModal
+          onPressHide={() => setMenuVisible(false)}
+          visible={menuVisible}
+          />
+       )}
     </Wrapper>
   );
 };
