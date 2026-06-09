@@ -7,7 +7,16 @@ import menuIcon from '../assets/images/menu.png';
 import MenuModal from '../components/MenuModal';
 import StartGame from '../assets/images/start.png';
 import { useIsFocused } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4 } from '../redux/reducers/gameSelectors';
+import WinModal from '../components/WinModal';
 const LudoBoardScreen = () => {
+
+  const player1=useSelector(selectPlayer1);
+  const player2=useSelector(selectPlayer2);
+  const player3=useSelector(selectPlayer3);
+  const player4=useSelector(selectPlayer4);
+  const winner = useSelector(state => state.game.winner);
   
   const isFocused= useIsFocused();
   const opacity= useRef(new Animated.Value(1)).current;
@@ -71,6 +80,7 @@ const LudoBoardScreen = () => {
           visible={menuVisible}
           />
        )}
+       {winner != null && <WinModal winner={winner}/>}
     </Wrapper>
   );
 };
