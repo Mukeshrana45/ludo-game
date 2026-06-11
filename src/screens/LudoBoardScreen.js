@@ -8,14 +8,17 @@ import MenuModal from '../components/MenuModal';
 import StartGame from '../assets/images/start.png';
 import { useIsFocused } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4 } from '../redux/reducers/gameSelectors';
+import { selectDiceTouch, selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4 } from '../redux/reducers/gameSelectors';
 import WinModal from '../components/WinModal';
+import { Colors } from '../constants/Colors';
+import Dice from '../components/Dice';
 const LudoBoardScreen = () => {
 
   const player1=useSelector(selectPlayer1);
   const player2=useSelector(selectPlayer2);
   const player3=useSelector(selectPlayer3);
   const player4=useSelector(selectPlayer4);
+  const isDiceTouch= useSelector(selectDiceTouch);
   const winner = useSelector(state => state.game.winner);
   
   const isFocused= useIsFocused();
@@ -61,6 +64,23 @@ const LudoBoardScreen = () => {
       <TouchableOpacity style={styles.menuIcon} onPress={handleMenuPress}>
        <Image source={menuIcon} style={styles.menuIconImage}/>
       </TouchableOpacity>
+
+      <View style={styles.container}>
+      <View style={styles.flexRow}
+      pointerEvents={isDiceTouch ? 'none' : 'auto'}>
+        <Dice color={Colors.green} player={2} data={player2} rotate={false}/>
+        <Dice color={Colors.yellow} player={3} data={player3} rotate={true}/>
+      </View>
+      <View style={styles.ludoBoard}>
+
+      </View>
+
+      <View style={styles.flexRow}
+        pointerEvents={isDiceTouch ? 'none' : 'auto'}>
+        <Dice color={Colors.red} player={1} data={player1} rotate={false}/>
+        <Dice color={Colors.blue} player={4} data={player4} rotate={true}/>
+      </View>
+      </View>
     {showStartImage && (
        <Animated.Image
         source={StartGame}
@@ -105,6 +125,12 @@ const styles= StyleSheet.create({
   menuIconImage:{
     width: 30,
     height: 30,
+  },
+  flexRow:{
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 30,
   },
 
 });

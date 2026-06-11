@@ -10,6 +10,8 @@ import HeartGirl from '../assets/animation/girl.json';
 import Trophy from '../assets/animation/trophy.json'
 import Firework from '../assets/animation/firework.json'
 import GradientButton from './GradientButton';
+import Pile from '../components/Pile';
+import colorPlayer from '../helpers/PlotData';
 
 
 const WinModal = ({winner}) => {
@@ -44,7 +46,9 @@ const WinModal = ({winner}) => {
       colors={['#0f0c29','#302b63','#24243e']}
       style={styles.gradientContainer}>
         <View style={styles.content}>
-        <View style={styles.pileContainer}></View>
+        <View style={styles.pileContainer}>
+            <Pile player={winner} color={colorPlayer[winner-1]}/> 
+        </View>
         <Text style={styles.congratsText}>
             🎉🎉 Congratulations! PLAYER {winner}
         </Text>
