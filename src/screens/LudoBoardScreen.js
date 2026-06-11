@@ -12,6 +12,7 @@ import { selectDiceTouch, selectPlayer1, selectPlayer2, selectPlayer3, selectPla
 import WinModal from '../components/WinModal';
 import { Colors } from '../constants/Colors';
 import Dice from '../components/Dice';
+import Pocket from '../components/Pocket';
 const LudoBoardScreen = () => {
 
   const player1=useSelector(selectPlayer1);
@@ -72,7 +73,15 @@ const LudoBoardScreen = () => {
         <Dice color={Colors.yellow} player={3} data={player3} rotate={true}/>
       </View>
       <View style={styles.ludoBoard}>
-
+          <View style={styles.plotContainer}>
+            <Pocket color={Colors.green} player={2} date={player2}/>
+             <Pocket color={Colors.yellow} player={3} date={player3}/>
+          </View>
+          <View style={styles.pathContainer}></View>
+           <View style={styles.plotContainer}>
+            <Pocket color={Colors.red} player={1} date={player1}/>
+              <Pocket color={Colors.blue} player={4} date={player4}/>
+           </View>
       </View>
 
       <View style={styles.flexRow}
@@ -131,6 +140,20 @@ const styles= StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: 30,
+  },
+  plotContainer:{
+    width: '100%',
+    height: '40%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    backgroundColor: '#ccc',
+  },
+  pathContainer:{
+    flexDirection: 'row',
+    width: '100%',
+    height: '20%',
+    justifyContent: 'space-between',
+    backgroundColor: '#1E5162',
   },
 
 });
