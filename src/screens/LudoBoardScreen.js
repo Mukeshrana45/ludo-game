@@ -13,6 +13,8 @@ import WinModal from '../components/WinModal';
 import { Colors } from '../constants/Colors';
 import Dice from '../components/Dice';
 import Pocket from '../components/Pocket';
+import VerticalPath from '../components/path/VerticalPath';
+  import { Plot2Data, Plot4Data } from '../helpers/PlotData';
 const LudoBoardScreen = () => {
 
   const player1=useSelector(selectPlayer1);
@@ -74,13 +76,15 @@ const LudoBoardScreen = () => {
       </View>
       <View style={styles.ludoBoard}>
           <View style={styles.plotContainer}>
-            <Pocket color={Colors.green} player={2} date={player2}/>
-             <Pocket color={Colors.yellow} player={3} date={player3}/>
+            <Pocket color={Colors.green} player={2} data={player2}/>
+            <VerticalPath cells={Plot2Data} color={Colors.yellow}/>
+             <Pocket color={Colors.yellow} player={3} data={player3}/>
           </View>
           <View style={styles.pathContainer}></View>
            <View style={styles.plotContainer}>
-            <Pocket color={Colors.red} player={1} date={player1}/>
-              <Pocket color={Colors.blue} player={4} date={player4}/>
+            <Pocket color={Colors.red} player={1} data={player1}/>
+             <VerticalPath cells={Plot4Data} color={Colors.red}/>
+              <Pocket color={Colors.blue} player={4} data={player4}/>
            </View>
       </View>
 

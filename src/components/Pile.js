@@ -7,6 +7,7 @@ import PileGreen from '../assets/images/piles/green.png';
 import PileRed from '../assets/images/piles/red.png';
 import PileBlue from '../assets/images/piles/blue.png';
 import PileYellow from '../assets/images/piles/yellow.png';
+import DashedCircle from '../assets/images/dashed-circle.png'
 
 const Pile = ({cell, pieceid, color, player, onPress}) => {
   const rotation= useRef(new Animated.Value(0)).current;
@@ -70,7 +71,19 @@ const Pile = ({cell, pieceid, color, player, onPress}) => {
       activeOpacity={0.5}
        disabled={!(cell ? isCellEnabled && isForwardable(): isPileEnabled)}
        onPress={onPress}>
-        <View style={styles.hollowCircle}></View>
+        <View style={styles.hollowCircle}>
+           {(cell ? isCellEnabled && isForwardable() : isPileEnabled) && (
+           <View style={styles.dashedCircleContainer}>
+            <Animated.View
+               style={[
+                styles.dashedCircle,
+                {transform: [{rotate: rotateInterpolate}]},
+               ]}>
+                <Image source={DashedCircle} style={styles.dashedCircleImage}/>
+               </Animated.View>
+           </View>
+              )}
+        </View>
         <Image
            source={getPileImage}
            style={{width:32, height: 32, position: 'absolute'}}/>
@@ -107,6 +120,11 @@ const styles = StyleSheet.create({
     height: 25,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  dashedCircleImage:{
+    width: 23,
+    height: 23, 
+    resizeMode: 'contain',
   },
 
 });

@@ -52,7 +52,7 @@ const Pocket = ({color, player, data}) => {
 const Plot =({pieceNo, player, color, data, handlePress}) => {
     return(
         <View style={[styles.plot, {backgroundColor: color}]}>
-            {data && data[pieceNo]?.pos==0 && (
+            {data && data[pieceNo]?.pos===0 && (
                 <Pile 
                    player={player}
                    color={color}
