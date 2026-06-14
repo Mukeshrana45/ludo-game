@@ -6,6 +6,7 @@ import { selectCurrentPositions } from '../../redux/reducers/gameSelectors'
 import { ArrowSpot, SafeSpots, StarSpots } from '../../helpers/PlotData'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { RFValue } from 'react-native-responsive-fontsize'
+import Pile from '../Pile'
 
 const Cell = ({id, color}) => {
 
@@ -31,7 +32,7 @@ const Cell = ({id, color}) => {
             backgroundColor: isSafeSpot ? color : 'white',
         },
     ]} >
-        {isStarSpot && <Ionicons name="star" size={20} color="grey"/>}
+        {isStarSpot && <Ionicons name="star-outline" size={20} color="grey"/>}
         {isArrowSpot && (
             <Ionicons name='arrow-forward-outline'
               style={{
@@ -53,6 +54,57 @@ const Cell = ({id, color}) => {
         size={RFValue(12)}
         color={color}
         />
+        )}
+        {piecesAtPosition?.map((piece, index) => {
+            const playerNo =
+            piece.id.slice(0, 1) === 'A'
+            ? 1
+            :piece.id.slice(0,1) ==='B'
+            ? 2
+            :piece.id.slice(0,1) === 'C'
+            ? 3
+            : 4;
+        const pieceColor=
+            piece.id.slice(0, 1) === 'A'
+            ? Colors.red
+            :piece.id.slice(0,1) ==='B'
+            ? Colors.green
+            :piece.id.slice(0,1) === 'C'
+            ? Colors.yellow
+            : Colors.blue;
+           return (
+            <View 
+              key={piece.id}
+              style={[
+                styles.pieceContainer,
+                {
+                    transform:[
+                        {scale: piecesAtPosition?.length ===1 ? 1:0.7},
+                        {
+                            translateX:
+                            piecesAtPosition.length === 1
+                            ? 0
+                            : index%2 ===0
+                            ? -6
+                            : 6,
+                        },
+                        {
+                            translateY:
+                               piecesAtPosition.length === 1 ? 0 : index <2 ? -6:6,
+                        },
+                    ],
+                },
+              ]}>
+                <Pile 
+                  cell={true}
+                  player={playerNo}
+                  onPress={() => handlePress(playerNo, piece.id)}
+                  pieceId={piece.id}
+                  color={pieceColor}
+                  />
+             </View>     
+           );
+        }
         )}
     </View>
   );
