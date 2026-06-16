@@ -11,7 +11,25 @@ export const gameSlice = createSlice({
         updateFireworks: (state, action) => {
             state.fireworks = action.payload;
         },
+        updateDiceNo: (state, action) => {
+            state.diceNo= action.payload.diceNo;
+            state.isDiceRolled= true;
+        },
+        enablePileSelection:(state, action) => {
+            state.touchDiceBlock=true;
+            state.pileSelectionPlayer=action.payload.playerNo;
+        },
+        updatePlayerChance: (state, action) => {
+            state.chancePlayer= action.payload.chancePlayer;
+            state.touchDiceBlock= false;
+            state.isDiceRolled= false;
+        },
+        enableCellSelection: (state, action) => {
+            state.touchDiceBlock=true;
+            state.cellSelectionPlayer= action.payload.playerNo;
+        },
+
     },
 });
-export const {resetGame,announceWinner, updateFireworks} = gameSlice.actions
+export const {resetGame, updatePlayerChance, enablePileSelection,updateDiceNo,announceWinner, updateFireworks,enableCellSelection} = gameSlice.actions
 export default gameSlice.reducer;

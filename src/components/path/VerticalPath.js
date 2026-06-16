@@ -24,7 +24,7 @@ const VerticalPath = ({cells, color}) => {
             key={`group-${groupIndex}`}
             style={{flexDirection: 'row',width: '33.3%',height: '16.7%'}}>
               {group.map(id => (
-                <Cell key={`cell-${id}`} cell={true} id={id} color={color}/>
+                <Cell key={`cell-${id}`} cell={true} id={id} color={color} />
               ))}
               </View>
         ))}

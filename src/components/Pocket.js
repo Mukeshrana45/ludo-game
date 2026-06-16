@@ -55,6 +55,8 @@ const Plot =({pieceNo, player, color, data, handlePress}) => {
             {data && data[pieceNo]?.pos===0 && (
                 <Pile 
                    player={player}
+                   pieceid={data[pieceNo]?.id}
+                   cell={false}
                    color={color}
                    onPress={() => {
                     handlePress(data[pieceNo]);

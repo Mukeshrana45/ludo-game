@@ -8,6 +8,7 @@ import LottieView from 'lottie-react-native';
 import DiceRoll from '../assets/animation/diceroll.json';
 import Arrow from '../assets/images/arrow.png';
 import { playSound } from '../helpers/SoundUtility';
+import { enableCellSelection, enablePileSelection, updateDiceNo, updatePlayerChance } from '../redux/reducers/gameSlice';
 
 const Dice = React.memo(({color, rotate, player, data}) => {
   const dispatch= useDispatch();
@@ -44,8 +45,52 @@ const Dice = React.memo(({color, rotate, player, data}) => {
   },[currentPlayerChance, isDiceRolled]);
 
   const handleDicePress=async() => {
+    const newDiceNo= Math.floor(Math.random()*6)+1;
+    playSound('dice_roll');
+    setDiceRolling(true);
+    await delay(800);
+    dispatch(updateDiceNo({diceNo: newDiceNo}));
+    setDiceRolling(false);
+    const isAnyPieceAlive= data?.findIndex(i=> i.pos!==0 && i.pos!==57);
+    const isAnyPieceLocked= data?.findIndex(i => i.pos==0);
 
-  }
+    if(isAnyPieceAlive==-1){
+      if(newDiceNo===6){
+        dispatch(enablePileSelection({playerNo: player}));
+      }
+      else{
+        let chancePlayer= player+1;
+        if(chancePlayer> 4){
+          chancePlayer=1;
+        }
+        await delay(600);
+        dispatch(updatePlayerChance({chancePlayer: chancePlayer}));
+      }
+    }
+    else{
+      const canMove= PlayerPieces.some(
+        pile => pile.travelCount + newDiceNo <= 57 && pile.pos!=0,
+      );
+      if(
+        (!canMove && newDiceNo==6 && isAnyPieceLocked==-1) ||
+        (!canMove && newDiceNo!=6 && isAnyPieceLocked!=-1) ||
+        (!canMove && newDiceNo!=6 && isAnyPieceLocked==-1)
+      ){
+        let chancePlayer = player+1;
+        if(chancePlayer>4){
+          chancePlayer=1;
+        }
+        await delay(600);
+        dispatch(updatePlayerChance({chancePlayer: chancePlayer}));
+        return;
+      }
+      if(newDiceNo==6){
+        dispatch(enablePileSelection({playerNo: player}));
+      }
+      dispatch(enableCellSelection({playerNo: player}));
+    }
+
+  };
   return (
     <View style={[styles.flexRow,{transform: [{ scaleX: rotate ? -1 : 1}]}]}>
       <View style={styles.border1}>

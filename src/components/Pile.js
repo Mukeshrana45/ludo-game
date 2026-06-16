@@ -79,24 +79,28 @@ const Pile = ({cell, pieceid, color, player, onPress}) => {
                 styles.dashedCircle,
                 {transform: [{rotate: rotateInterpolate}]},
                ]}>
-               <Svg height="18" width="18">
+               <Svg height="25" width="25">
                 <Circle 
-                  cx="9"
-                  cy="9"
-                  r="8"
-                  stroke="white"
-                  strokeDasharray="4 4"
-                  strokeDashoffset="0"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="red"
+                  strokeWidth="2"
+                  strokeDasharray="12 4"
                   fill="transparent"
                   />
                </Svg>
                </Animated.View>
+               
            </View>
+           
               )}
+             
         </View>
-        <Image
+         <Image
            source={getPileImage}
            style={{width:32, height: 32, position: 'absolute'}}/>
+        
        </TouchableOpacity>
   );
 };
