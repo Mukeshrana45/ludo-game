@@ -99,7 +99,7 @@ const Cell = ({id, color}) => {
                   cell={true}
                   player={playerNo}
                   onPress={() => handlePress(playerNo, piece.id)}
-                  pieceId={piece.id}
+                  pieceid={piece.id}
                   color={pieceColor}
                   />
              </View>     

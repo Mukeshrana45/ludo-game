@@ -3,10 +3,37 @@ import React, { memo } from 'react'
 import { Colors } from '../constants/Colors'
 import { useDispatch } from 'react-redux'
 import Pile from './Pile';
+import { unfreezeDice, updatePlayerChance, updatePlayerPieceValue } from '../redux/reducers/gameSlice';
+import { startingPoints } from '../helpers/PlotData';
 
 const Pocket = ({color, player, data}) => {
     const dispatch = useDispatch();
-    const handlePress = async value => {};
+    const handlePress = async value => {
+        let playerNo= value?.id?.slice(0,1);
+        switch(playerNo){
+            case 'A':
+                playerNo='player1';
+                break;
+            case 'B':
+                playerNo='player2';
+                break;
+            case 'C':
+                playerNo='player3'; 
+                break; 
+            default:
+                playerNo='player4';
+                break;          
+        }
+        dispatch(
+             updatePlayerPieceValue({
+                playerNo: playerNo,
+                pieceId: value.id,
+                pos: startingPoints[parseInt(playerNo.match(/\d+/)[0],10) -1],
+                travelCount: 1,
+             }),
+        )
+        dispatch(unfreezeDice());
+    };
   return (
     <View style={[styles.container,{backgroundColor:color}]}>
         <View style={styles.childFrame}>

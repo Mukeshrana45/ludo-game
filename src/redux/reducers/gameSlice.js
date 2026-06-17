@@ -28,8 +28,43 @@ export const gameSlice = createSlice({
             state.touchDiceBlock=true;
             state.cellSelectionPlayer= action.payload.playerNo;
         },
+        unfreezeDice: state => {
+            state.touchDiceBlock=false;
+            state.isDiceRolled=false;
+        },
+        updatePlayerPieceValue: (state, action) => {
+            const {playerNo, pieceId, pos, travelCount} = action.payload;
+            const playerPieces= state[playerNo];
+            const piece = playerPieces.find(p => p.id === pieceId);
+            state.pileSelectionPlayer= -1;
+            if(piece){
+                piece.pos=pos;
+                piece.travelCount= travelCount;
+
+                const currentPositionIndex= state.currentPositions.findIndex(
+                    p => p.id === pieceId,
+                );
+                if(pos===0){
+                    if(currentPositionIndex!==-1){
+                        state.currentPositions.splice(currentPositionIndex, 1);
+                    }
+                }
+                else{
+                    if(currentPositionIndex!==-1){
+                        state.currentPositions[currentPositionIndex]={
+                            id: pieceId,
+                            pos
+                        };
+                    }
+                    else{
+                        state.currentPositions.push({id: pieceId,pos});
+                    }
+                }
+            }
+        }
+
 
     },
 });
-export const {resetGame, updatePlayerChance, enablePileSelection,updateDiceNo,announceWinner, updateFireworks,enableCellSelection} = gameSlice.actions
+export const {resetGame, updatePlayerChance, enablePileSelection,updateDiceNo,announceWinner, updateFireworks,enableCellSelection,unfreezeDice,updatePlayerPieceValue} = gameSlice.actions
 export default gameSlice.reducer;

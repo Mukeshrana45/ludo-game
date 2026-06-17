@@ -84,7 +84,7 @@ const Dice = React.memo(({color, rotate, player, data}) => {
         dispatch(updatePlayerChance({chancePlayer: chancePlayer}));
         return;
       }
-      if(newDiceNo==6){
+      if(newDiceNo===6){
         dispatch(enablePileSelection({playerNo: player}));
       }
       dispatch(enableCellSelection({playerNo: player}));
