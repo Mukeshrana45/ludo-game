@@ -32,6 +32,11 @@ export const gameSlice = createSlice({
             state.touchDiceBlock=false;
             state.isDiceRolled=false;
         },
+        disableTouch: state => {
+            state.touchDiceBlock= true;
+            state.cellSelectionPlayer= -1;
+            state.pileSelectionPlayer= -1;
+        },
         updatePlayerPieceValue: (state, action) => {
             const {playerNo, pieceId, pos, travelCount} = action.payload;
             const playerPieces= state[playerNo];
@@ -66,5 +71,5 @@ export const gameSlice = createSlice({
 
     },
 });
-export const {resetGame, updatePlayerChance, enablePileSelection,updateDiceNo,announceWinner, updateFireworks,enableCellSelection,unfreezeDice,updatePlayerPieceValue} = gameSlice.actions
+export const {resetGame, updatePlayerChance, enablePileSelection,updateDiceNo,announceWinner, updateFireworks,enableCellSelection,unfreezeDice,disableTouch,updatePlayerPieceValue} = gameSlice.actions
 export default gameSlice.reducer;

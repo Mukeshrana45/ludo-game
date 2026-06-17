@@ -7,6 +7,7 @@ import { ArrowSpot, SafeSpots, StarSpots } from '../../helpers/PlotData'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { RFValue } from 'react-native-responsive-fontsize'
 import Pile from '../Pile'
+import {handleForwardThunk} from '../../redux/reducers/gameAction';
 
 const Cell = ({id, color}) => {
 
@@ -21,7 +22,9 @@ const Cell = ({id, color}) => {
         [plottedPieces, id],
     );
     const handlePress = useCallback(
-        (playerNo, pieceId) => {}, [dispatch, id])
+        (playerNo, pieceId) => {
+            dispatch(handleForwardThunk(playerNo, pieceId,id));
+        }, [dispatch, id])
     
     
 
