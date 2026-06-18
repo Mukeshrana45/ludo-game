@@ -49,6 +49,20 @@ npm install
 
 npx react-native run-android
 
+## Screenshots
+
+### Home Screen
+
+![Home Screen](screenshots/home-screen.png)
+
+### Game Board
+
+![Game Board](screenshots/game-board.png)
+
+### Winner Screen
+
+![Winner Screen](screenshots/winner-screen.png)
+
 ## Future Improvements
 
 * Single-player mode against CPU
