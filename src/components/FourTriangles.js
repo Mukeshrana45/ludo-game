@@ -122,8 +122,8 @@ const FourTriangles = ({player1, player2, player3, player4}) => {
 
                   }}>
                     <Pile 
-                      cell={true}
-                      player={player}
+                      cell={false}
+                      player={1}
                       onPress={() => {}}
                       pieceid={piece.id}
                       color={pieceColor}

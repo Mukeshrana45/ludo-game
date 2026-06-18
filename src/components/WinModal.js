@@ -1,4 +1,4 @@
-import { View, Text, Modal, StyleSheet } from 'react-native'
+import { View, Modal, Text,StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { announceWinner, resetGame } from '../redux/reducers/gameSlice';
@@ -10,8 +10,9 @@ import HeartGirl from '../assets/animation/girl.json';
 import Trophy from '../assets/animation/trophy.json'
 import Firework from '../assets/animation/firework.json'
 import GradientButton from './GradientButton';
-import Pile from '../components/Pile';
-import colorPlayer from '../helpers/PlotData';
+import Pile from './Pile';
+import {colorPlayer} from '../helpers/PlotData';
+
 
 
 const WinModal = ({winner}) => {
@@ -34,7 +35,7 @@ const WinModal = ({winner}) => {
     };
   return (
     <Modal
-        style={StyleSheet.modal}
+        style={styles.modal}
         isVisible={visible}
         backdropColor="black"
         backdropOpacity={0.8}
